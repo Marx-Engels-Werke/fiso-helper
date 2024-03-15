@@ -1,9 +1,14 @@
 from PyQt6.QtWidgets import QApplication
-
 from src.app import UiMainWindow
 
-app = QApplication([])
 
-window = UiMainWindow()
+def main():
+    app = QApplication([])
 
-app.exec()
+    window = UiMainWindow()
+
+    app.exec()
+
+
+if __name__ == '__main__':
+    main()
