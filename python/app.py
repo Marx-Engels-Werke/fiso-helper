@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-from PyQt6 import QtGui
-from PyQt6.QtCore import QSize, Qt, QRect
-from PyQt6.QtGui import QFont, QTextFormat, QColor
-from PyQt6.QtWidgets import QMainWindow, QWidget, QGroupBox, QLabel, QFrame, QPushButton, QLineEdit, QListWidget, \
-    QListWidgetItem, QHBoxLayout, QVBoxLayout, QSizePolicy
+from PyQt6.QtCore import QSize, Qt
+from PyQt6.QtGui import QFont
+from PyQt6.QtWidgets import (QMainWindow, QWidget, QGroupBox, QLabel, QPushButton, QLineEdit, QListWidget,
+                             QHBoxLayout, QVBoxLayout, QSizePolicy)
 
 import logging
 import pathlib
+
 
 class UiMainWindow(QMainWindow):
     """
