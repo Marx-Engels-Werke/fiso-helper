@@ -1,7 +1,7 @@
 # fiso-helper Qt project file
 # Application version
 VERSION_MAJOR = 1
-VERSION_MINOR = 3
+VERSION_MINOR = 4
 VERSION_BUILD = 0
 
 DEFINES += "VERSION_MAJOR=$$VERSION_MAJOR"\
@@ -35,3 +35,8 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    resources/app_icon.qrc
+
+RC_ICONS = app_icon

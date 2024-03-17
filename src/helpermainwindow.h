@@ -5,6 +5,7 @@
 #include <QListWidgetItem>
 #include <QChar>
 #include <QMessageBox>
+#include <QTimer>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -37,8 +38,19 @@ private slots:
 
     void on_moveSpeakerDownButton_clicked();
 
+    void on_timerEdit_userTimeChanged(const QTime &time);
+
+    void on_timerGoButton_clicked();
+
+    void on_timerStopButton_clicked();
+
 private:
     Ui::helperMainWindow *ui;
+    QTimer *updateTimer = new QTimer();
+    QTimer *speakerTimer = new QTimer();
+
     void resizeEvent(QResizeEvent*);
+    void speakerTimeout();
+    void updateProgress();
 };
 #endif // HELPERMAINWINDOW_H
