@@ -29,6 +29,9 @@
    <iconset resource="app_icon.qrc">
     <normaloff>:/app_icon/app_icon</normaloff>:/app_icon/app_icon</iconset>
   </property>
+  <property name="windowOpacity">
+   <double>1.000000000000000</double>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="centralwidgetHL" stretch="0">
     <property name="spacing">
@@ -131,6 +134,9 @@
             </property>
             <property name="toolTip">
              <string>Redezeit ändern (mm:ss)</string>
+            </property>
+            <property name="inputMethodHints">
+             <set>Qt::ImhPreferNumbers|Qt::ImhTime</set>
             </property>
             <property name="wrapping">
              <bool>true</bool>
