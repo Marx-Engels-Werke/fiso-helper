@@ -35,7 +35,7 @@ void helperMainWindow::on_presentList_itemDoubleClicked(QListWidgetItem *item) {
         ui->currentSpeakerLabel->setText(item->text());
 
         QFont labelFont = ui->currentSpeakerLabel->font();
-        labelFont.setPointSize(ui->currentSpeakerLabel->height() - 25);
+        labelFont.setPointSize(30);
         ui->currentSpeakerLabel->setFont(labelFont);
     }
     else {
@@ -65,7 +65,7 @@ void helperMainWindow::on_removeCurrentSpeakerButton_clicked() {
         ui->currentSpeakerLabel->setText(ui->speakerList->item(0)->text());
 
         QFont labelFont = ui->currentSpeakerLabel->font();
-        labelFont.setPointSize(ui->currentSpeakerLabel->height() - 25);
+        labelFont.setPointSize(30);
         ui->currentSpeakerLabel->setFont(labelFont);
 
         ui->speakerList->takeItem(0);
@@ -108,7 +108,7 @@ void helperMainWindow::on_moveSpeakerDownButton_clicked() {
 
 void helperMainWindow::resizeEvent(QResizeEvent*) {
     QFont labelFont = ui->currentSpeakerLabel->font();
-    labelFont.setPointSize(ui->currentSpeakerLabel->height() - 25);
+    labelFont.setPointSize(30);
     ui->currentSpeakerLabel->setFont(labelFont);
 }
 
