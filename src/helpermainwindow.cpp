@@ -137,8 +137,7 @@ void helperMainWindow::on_timerStopButton_clicked() {
 
 void helperMainWindow::updateProgress() {
     ui->timerProgressBar->setValue(ui->timerProgressBar->value() - 1);
-    if (speakerTimer->remainingTime() / 1000 <= 15.0 &&
-        ui->currentSpeakerLabel->palette().color(QPalette::Window) != Qt::yellow) {
+    if (speakerTimer->remainingTime() / 1000 < 15.0) {
         ui->currentSpeakerLabel->setAutoFillBackground(true);
         QPalette backgroundPalette;
         backgroundPalette.setColor(QPalette::Window, Qt::yellow);
@@ -150,10 +149,9 @@ void helperMainWindow::speakerTimeout() {
     speakerTimer->stop();
     updateTimer->stop();
     ui->timerProgressBar->setValue(0);
-    if (ui->currentSpeakerLabel->palette().color(QPalette::Window) != Qt::red) {
-        ui->currentSpeakerLabel->setAutoFillBackground(true);
-        QPalette backgroundPalette;
-        backgroundPalette.setColor(QPalette::Window, Qt::red);
-        ui->currentSpeakerLabel->setPalette(backgroundPalette);
-    }
+
+    ui->currentSpeakerLabel->setAutoFillBackground(true);
+    QPalette backgroundPalette;
+    backgroundPalette.setColor(QPalette::Window, Qt::red);
+    ui->currentSpeakerLabel->setPalette(backgroundPalette);
 }
