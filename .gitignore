@@ -6,10 +6,8 @@ __pycache__/
 # C extensions
 *.so
 
-# Qt build and preoject files
-build-Debug/
-build-Release/
-build-Profile/
+# Qt build and project files
+build*
 *.user
 
 # Distribution / packaging

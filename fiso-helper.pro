@@ -2,7 +2,7 @@
 # Application version
 VERSION_MAJOR = 1
 VERSION_MINOR = 4
-VERSION_BUILD = 1
+VERSION_BUILD = 2
 
 DEFINES += "VERSION_MAJOR=$$VERSION_MAJOR"\
            "VERSION_MINOR=$$VERSION_MINOR"\
@@ -38,5 +38,3 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     resources/app_icon.qrc
-
-RC_ICONS = app_icon
