@@ -1,5 +1,0 @@
-<RCC>
-    <qresource prefix="/app_icon">
-        <file alias="app_icon">fieso_glasses.png</file>
-    </qresource>
-</RCC>

@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>icons/fieso_glasses.png</file>
+    </qresource>
+    <qresource prefix="/sounds">
+        <file>sounds/ding.wav</file>
+        <file>sounds/dingdingding.wav</file>
+    </qresource>
+</RCC>

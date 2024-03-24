@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>240</width>
-    <height>480</height>
+    <width>250</width>
+    <height>530</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -18,8 +18,8 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>240</width>
-    <height>480</height>
+    <width>250</width>
+    <height>530</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -78,12 +78,6 @@
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>60</height>
-          </size>
-         </property>
          <property name="title">
           <string>Timer</string>
          </property>
@@ -96,7 +90,7 @@
          <property name="checked">
           <bool>true</bool>
          </property>
-         <layout class="QHBoxLayout" name="timerGroupBoxWidgetHL">
+         <layout class="QVBoxLayout" name="verticalLayout">
           <property name="spacing">
            <number>5</number>
           </property>
@@ -113,9 +107,9 @@
            <number>0</number>
           </property>
           <item>
-           <widget class="QTimeEdit" name="timerEdit">
+           <widget class="QWidget" name="timerControls" native="true">
             <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
@@ -123,7 +117,7 @@
             <property name="minimumSize">
              <size>
               <width>0</width>
-              <height>0</height>
+              <height>30</height>
              </size>
             </property>
             <property name="maximumSize">
@@ -132,58 +126,180 @@
               <height>30</height>
              </size>
             </property>
-            <property name="toolTip">
-             <string>Redezeit ändern (mm:ss)</string>
-            </property>
-            <property name="inputMethodHints">
-             <set>Qt::ImhPreferNumbers|Qt::ImhTime</set>
-            </property>
-            <property name="wrapping">
-             <bool>true</bool>
-            </property>
-            <property name="minimumTime">
-             <time>
-              <hour>0</hour>
-              <minute>0</minute>
-              <second>0</second>
-             </time>
-            </property>
-            <property name="currentSection">
-             <enum>QDateTimeEdit::SecondSection</enum>
-            </property>
-            <property name="displayFormat">
-             <string>mm:ss</string>
-            </property>
-            <property name="currentSectionIndex">
-             <number>1</number>
-            </property>
-            <property name="time">
-             <time>
-              <hour>0</hour>
-              <minute>3</minute>
-              <second>0</second>
-             </time>
-            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout">
+             <property name="spacing">
+              <number>5</number>
+             </property>
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <item>
+              <widget class="QTimeEdit" name="timerEdit">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>30</height>
+                </size>
+               </property>
+               <property name="toolTip">
+                <string>Redezeit ändern (mm:ss)</string>
+               </property>
+               <property name="inputMethodHints">
+                <set>Qt::ImhPreferNumbers|Qt::ImhTime</set>
+               </property>
+               <property name="wrapping">
+                <bool>true</bool>
+               </property>
+               <property name="minimumTime">
+                <time>
+                 <hour>0</hour>
+                 <minute>0</minute>
+                 <second>0</second>
+                </time>
+               </property>
+               <property name="currentSection">
+                <enum>QDateTimeEdit::SecondSection</enum>
+               </property>
+               <property name="displayFormat">
+                <string>mm:ss</string>
+               </property>
+               <property name="currentSectionIndex">
+                <number>1</number>
+               </property>
+               <property name="time">
+                <time>
+                 <hour>0</hour>
+                 <minute>3</minute>
+                 <second>0</second>
+                </time>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QPushButton" name="timerGoButton">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>30</width>
+                 <height>30</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>30</width>
+                 <height>30</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
+               <property name="toolTip">
+                <string>Redetimer starten</string>
+               </property>
+               <property name="text">
+                <string>⏵</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="timerStopButton">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>30</width>
+                 <height>30</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>30</width>
+                 <height>30</height>
+                </size>
+               </property>
+               <property name="toolTip">
+                <string>Redetimer stoppen</string>
+               </property>
+               <property name="text">
+                <string>⏹</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </widget>
           </item>
           <item>
            <widget class="QProgressBar" name="timerProgressBar">
             <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>27</height>
+             </size>
+            </property>
             <property name="maximumSize">
              <size>
               <width>16777215</width>
-              <height>30</height>
+              <height>27</height>
              </size>
             </property>
             <property name="font">
              <font>
               <bold>true</bold>
              </font>
+            </property>
+            <property name="autoFillBackground">
+             <bool>true</bool>
             </property>
             <property name="maximum">
              <number>180</number>
@@ -205,62 +321,6 @@
             </property>
            </widget>
           </item>
-          <item>
-           <widget class="QPushButton" name="timerGoButton">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>30</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="toolTip">
-             <string>Redetimer starten</string>
-            </property>
-            <property name="text">
-             <string>⏵</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="timerStopButton">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>30</width>
-              <height>30</height>
-             </size>
-            </property>
-            <property name="toolTip">
-             <string>Redetimer stoppen</string>
-            </property>
-            <property name="text">
-             <string>⏹</string>
-            </property>
-           </widget>
-          </item>
          </layout>
         </widget>
        </item>
@@ -275,6 +335,9 @@
          <property name="title">
           <string>Aktuelle Redner*in</string>
          </property>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+         </property>
          <property name="flat">
           <bool>true</bool>
          </property>
@@ -283,13 +346,13 @@
            <number>10</number>
           </property>
           <property name="leftMargin">
-           <number>0</number>
+           <number>2</number>
           </property>
           <property name="topMargin">
            <number>0</number>
           </property>
           <property name="rightMargin">
-           <number>0</number>
+           <number>2</number>
           </property>
           <property name="bottomMargin">
            <number>0</number>
@@ -344,7 +407,7 @@
             </property>
             <layout class="QVBoxLayout" name="currentSpeakerControlsVL">
              <property name="spacing">
-              <number>3</number>
+              <number>5</number>
              </property>
              <property name="leftMargin">
               <number>0</number>
@@ -368,8 +431,8 @@
                </property>
                <property name="minimumSize">
                 <size>
-                 <width>0</width>
-                 <height>0</height>
+                 <width>30</width>
+                 <height>30</height>
                 </size>
                </property>
                <property name="maximumSize">
@@ -378,11 +441,17 @@
                  <height>30</height>
                 </size>
                </property>
+               <property name="font">
+                <font>
+                 <pointsize>16</pointsize>
+                 <bold>true</bold>
+                </font>
+               </property>
                <property name="toolTip">
                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Aktuelle Redner*in entfernen&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
                <property name="text">
-                <string>➖</string>
+                <string>−</string>
                </property>
               </widget>
              </item>
@@ -411,13 +480,13 @@
            <number>10</number>
           </property>
           <property name="leftMargin">
-           <number>0</number>
+           <number>2</number>
           </property>
           <property name="topMargin">
            <number>0</number>
           </property>
           <property name="rightMargin">
-           <number>0</number>
+           <number>2</number>
           </property>
           <property name="bottomMargin">
            <number>0</number>
@@ -447,7 +516,7 @@
             </property>
             <layout class="QVBoxLayout" name="speakerListControlsVL">
              <property name="spacing">
-              <number>3</number>
+              <number>5</number>
              </property>
              <property name="leftMargin">
               <number>0</number>
@@ -471,8 +540,8 @@
                </property>
                <property name="minimumSize">
                 <size>
-                 <width>0</width>
-                 <height>0</height>
+                 <width>30</width>
+                 <height>30</height>
                 </size>
                </property>
                <property name="maximumSize">
@@ -481,11 +550,17 @@
                  <height>30</height>
                 </size>
                </property>
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                 <bold>false</bold>
+                </font>
+               </property>
                <property name="toolTip">
                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Redner*in nach oben verschieben&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
                <property name="text">
-                <string>⬆</string>
+                <string>🠅</string>
                </property>
               </widget>
              </item>
@@ -499,8 +574,8 @@
                </property>
                <property name="minimumSize">
                 <size>
-                 <width>0</width>
-                 <height>0</height>
+                 <width>30</width>
+                 <height>30</height>
                 </size>
                </property>
                <property name="maximumSize">
@@ -509,11 +584,17 @@
                  <height>30</height>
                 </size>
                </property>
+               <property name="font">
+                <font>
+                 <pointsize>16</pointsize>
+                 <bold>true</bold>
+                </font>
+               </property>
                <property name="toolTip">
                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Redner*in entfernen&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
                <property name="text">
-                <string>➖</string>
+                <string>-</string>
                </property>
               </widget>
              </item>
@@ -527,8 +608,8 @@
                </property>
                <property name="minimumSize">
                 <size>
-                 <width>0</width>
-                 <height>0</height>
+                 <width>30</width>
+                 <height>30</height>
                 </size>
                </property>
                <property name="maximumSize">
@@ -537,11 +618,16 @@
                  <height>30</height>
                 </size>
                </property>
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
                <property name="toolTip">
                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Redner*in nach unten verschieben&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
                <property name="text">
-                <string>⬇</string>
+                <string>🠇</string>
                </property>
               </widget>
              </item>
@@ -570,13 +656,13 @@
            <number>10</number>
           </property>
           <property name="leftMargin">
-           <number>0</number>
+           <number>2</number>
           </property>
           <property name="topMargin">
            <number>0</number>
           </property>
           <property name="rightMargin">
-           <number>0</number>
+           <number>2</number>
           </property>
           <property name="bottomMargin">
            <number>0</number>
@@ -610,7 +696,7 @@
             </property>
             <layout class="QVBoxLayout" name="presentListControlsVL">
              <property name="spacing">
-              <number>3</number>
+              <number>5</number>
              </property>
              <property name="leftMargin">
               <number>0</number>
@@ -634,8 +720,8 @@
                </property>
                <property name="minimumSize">
                 <size>
-                 <width>0</width>
-                 <height>0</height>
+                 <width>30</width>
+                 <height>30</height>
                 </size>
                </property>
                <property name="maximumSize">
@@ -644,11 +730,17 @@
                  <height>30</height>
                 </size>
                </property>
+               <property name="font">
+                <font>
+                 <pointsize>16</pointsize>
+                 <bold>true</bold>
+                </font>
+               </property>
                <property name="toolTip">
                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Anwesende Person entfernen&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
                <property name="text">
-                <string>➖</string>
+                <string>−</string>
                </property>
               </widget>
              </item>
@@ -669,7 +761,7 @@
          <property name="minimumSize">
           <size>
            <width>0</width>
-           <height>30</height>
+           <height>32</height>
           </size>
          </property>
          <property name="flat">
@@ -683,13 +775,13 @@
            <number>10</number>
           </property>
           <property name="leftMargin">
-           <number>0</number>
+           <number>2</number>
           </property>
           <property name="topMargin">
            <number>0</number>
           </property>
           <property name="rightMargin">
-           <number>0</number>
+           <number>2</number>
           </property>
           <property name="bottomMargin">
            <number>0</number>
@@ -732,7 +824,7 @@
             </property>
             <layout class="QVBoxLayout" name="inputPresentControlsVL">
              <property name="spacing">
-              <number>3</number>
+              <number>5</number>
              </property>
              <property name="leftMargin">
               <number>0</number>
@@ -756,8 +848,8 @@
                </property>
                <property name="minimumSize">
                 <size>
-                 <width>0</width>
-                 <height>0</height>
+                 <width>30</width>
+                 <height>30</height>
                 </size>
                </property>
                <property name="maximumSize">
@@ -766,11 +858,17 @@
                  <height>30</height>
                 </size>
                </property>
+               <property name="font">
+                <font>
+                 <pointsize>16</pointsize>
+                 <bold>true</bold>
+                </font>
+               </property>
                <property name="toolTip">
                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Anwesende Person hinzufügen&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
                <property name="text">
-                <string>➕</string>
+                <string>+</string>
                </property>
               </widget>
              </item>
@@ -785,6 +883,65 @@
     </item>
    </layout>
   </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>250</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuOptions">
+    <property name="title">
+     <string>Optionen</string>
+    </property>
+    <addaction name="actionSettings"/>
+   </widget>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>Datei</string>
+    </property>
+    <addaction name="actionNewSession"/>
+    <addaction name="actionSessionOpen"/>
+    <addaction name="actionSessionSave"/>
+    <addaction name="separator"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuOptions"/>
+  </widget>
+  <action name="actionExit">
+   <property name="text">
+    <string>&amp;Beenden</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::QuitRole</enum>
+   </property>
+  </action>
+  <action name="actionSettings">
+   <property name="text">
+    <string>&amp;Einstellungen</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::PreferencesRole</enum>
+   </property>
+  </action>
+  <action name="actionNewSession">
+   <property name="text">
+    <string>&amp;Neue Satzung</string>
+   </property>
+  </action>
+  <action name="actionSessionOpen">
+   <property name="text">
+    <string>&amp;Satzung öffnen...</string>
+   </property>
+  </action>
+  <action name="actionSessionSave">
+   <property name="text">
+    <string>Sat&amp;zung speichern...</string>
+   </property>
+  </action>
  </widget>
  <resources>
   <include location="app_icon.qrc"/>

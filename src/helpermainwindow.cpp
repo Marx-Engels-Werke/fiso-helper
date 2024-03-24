@@ -1,18 +1,30 @@
 #include "helpermainwindow.h"
 #include "ui_helpermainwindow.h"
+#include "settingsdialog.h"
 
 helperMainWindow::helperMainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::helperMainWindow) {
     ui->setupUi(this);
+
+    // set default dettings
+    this->timerWarningDelay = 15;
+    this->timerWarningSoundEnabled = false;
+
+    // connect timers
     connect(this->updateTimer, &QTimer::timeout, this, &helperMainWindow::updateProgress);
     connect(this->speakerTimer, &QTimer::timeout, this, &helperMainWindow::speakerTimeout);
+
+    // sounds
+    this->ding.setSource(QUrl("qrc:/sounds/sounds/ding.wav"));
+    this->dingdingding.setSource(QUrl("qrc:/sounds/sounds/dingdingding.wav"));
 }
 
 helperMainWindow::~helperMainWindow() {
     delete ui;
 }
 
+// ui elements
 void helperMainWindow::on_addPresentButton_clicked() {
     if (ui->inputPresentEditBox->text().length() > 1) {
         ui->presentList->addItem(ui->inputPresentEditBox->text().simplified());
@@ -106,12 +118,6 @@ void helperMainWindow::on_moveSpeakerDownButton_clicked() {
     }
 }
 
-void helperMainWindow::resizeEvent(QResizeEvent*) {
-    QFont labelFont = ui->currentSpeakerLabel->font();
-    labelFont.setPointSize(30);
-    ui->currentSpeakerLabel->setFont(labelFont);
-}
-
 void helperMainWindow::on_timerEdit_userTimeChanged(const QTime &time) {
     int timerMaxTime = time.minute() * 60 + time.second();
     ui->timerProgressBar->setMaximum(timerMaxTime);
@@ -135,13 +141,48 @@ void helperMainWindow::on_timerStopButton_clicked() {
     ui->timerProgressBar->setValue(ui->timerProgressBar->value());
 }
 
+// menu elements
+
+void helperMainWindow::on_actionExit_triggered() {
+    this->close();
+}
+
+void helperMainWindow::on_actionSettings_triggered() {
+    settingsDialog *sd = new settingsDialog(timerWarningDelay, timerWarningSoundEnabled, this);
+    connect(sd, &settingsDialog::timerWarningDelayChanged, this, &helperMainWindow::timerWarningChangedHandler);
+    connect(sd, &settingsDialog::timerWarningSoundChanged, this, &helperMainWindow::timerWarningSoundHandler);
+    sd->show();
+}
+
+// communication handlers
+
+void helperMainWindow::timerWarningSoundHandler(bool soundState) {
+    this->timerWarningSoundEnabled = soundState;
+}
+
+void helperMainWindow::timerWarningChangedHandler(int warningDelay) {
+    this->timerWarningDelay = warningDelay;
+}
+
+// private
+
+void helperMainWindow::resizeEvent(QResizeEvent*) {
+    QFont labelFont = ui->currentSpeakerLabel->font();
+    labelFont.setPointSize(30);
+    ui->currentSpeakerLabel->setFont(labelFont);
+}
+
 void helperMainWindow::updateProgress() {
     ui->timerProgressBar->setValue(ui->timerProgressBar->value() - 1);
-    if (speakerTimer->remainingTime() / 1000 < 15.0) {
+    if (speakerTimer->remainingTime() / 1000 < this->timerWarningDelay &&
+        ui->currentSpeakerLabel->palette().window().color() != Qt::yellow) {
         ui->currentSpeakerLabel->setAutoFillBackground(true);
         QPalette backgroundPalette;
         backgroundPalette.setColor(QPalette::Window, Qt::yellow);
         ui->currentSpeakerLabel->setPalette(backgroundPalette);
+
+        if (this->timerWarningSoundEnabled)
+            this->ding.play();
     }
 }
 
@@ -154,4 +195,8 @@ void helperMainWindow::speakerTimeout() {
     QPalette backgroundPalette;
     backgroundPalette.setColor(QPalette::Window, Qt::red);
     ui->currentSpeakerLabel->setPalette(backgroundPalette);
+
+    if (this->timerWarningSoundEnabled)
+        this->dingdingding.play();
 }
+

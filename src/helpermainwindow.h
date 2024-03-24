@@ -4,8 +4,9 @@
 #include <QMainWindow>
 #include <QListWidgetItem>
 #include <QChar>
-#include <QMessageBox>
 #include <QTimer>
+#include <QUrl>
+#include <QtMultimedia/QSoundEffect>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -21,7 +22,11 @@ public:
     helperMainWindow(QWidget *parent = nullptr);
     ~helperMainWindow();
 
+    void setTimerWarning(int newTimerWarning);
+
 private slots:
+
+    // ui elements
     void on_addPresentButton_clicked();
 
     void on_inputPresentEditBox_returnPressed();
@@ -44,6 +49,16 @@ private slots:
 
     void on_timerStopButton_clicked();
 
+    // menu elements
+    void on_actionExit_triggered();
+
+    void on_actionSettings_triggered();
+
+    // communication handlers
+    void timerWarningChangedHandler(int arg1);
+
+    void timerWarningSoundHandler(bool arg1);
+
 private:
     Ui::helperMainWindow *ui;
     QTimer *updateTimer = new QTimer();
@@ -52,5 +67,11 @@ private:
     void resizeEvent(QResizeEvent*);
     void speakerTimeout();
     void updateProgress();
+
+    int timerWarningDelay;
+    bool timerWarningSoundEnabled;
+
+    QSoundEffect ding;
+    QSoundEffect dingdingding;
 };
 #endif // HELPERMAINWINDOW_H
