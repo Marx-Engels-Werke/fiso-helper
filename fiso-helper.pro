@@ -1,7 +1,7 @@
 # fiso-helper Qt project file
 # Application version
 VERSION_MAJOR = 1
-VERSION_MINOR = 5
+VERSION_MINOR = 6
 VERSION_BUILD = 0
 
 DEFINES += "VERSION_MAJOR=$$VERSION_MAJOR"\
@@ -22,11 +22,13 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    src/session.cpp \
     src/settingsdialog.cpp \
     src/main.cpp \
     src/helpermainwindow.cpp
 
 HEADERS += \
+    src/session.h \
     src/settingsdialog.h \
     src/helpermainwindow.h \
 

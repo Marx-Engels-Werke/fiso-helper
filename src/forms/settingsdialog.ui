@@ -32,8 +32,8 @@
    <string>Dialog</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="app_icon.qrc">
-    <normaloff>:/app_icon/app_icon</normaloff>:/app_icon/app_icon</iconset>
+   <iconset resource="../../resources/resources.qrc">
+    <normaloff>:/icons/icons/fieso_glasses.png</normaloff>:/icons/icons/fieso_glasses.png</iconset>
   </property>
   <property name="modal">
    <bool>true</bool>
@@ -111,7 +111,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="app_icon.qrc"/>
+  <include location="../../resources/resources.qrc"/>
  </resources>
  <connections>
   <connection>

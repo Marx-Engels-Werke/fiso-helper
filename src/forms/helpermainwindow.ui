@@ -26,8 +26,8 @@
    <string>fiso-helper</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="app_icon.qrc">
-    <normaloff>:/app_icon/app_icon</normaloff>:/app_icon/app_icon</iconset>
+   <iconset resource="../../resources/resources.qrc">
+    <normaloff>:/icons/icons/fieso_glasses.png</normaloff>:/icons/icons/fieso_glasses.png</iconset>
   </property>
   <property name="windowOpacity">
    <double>1.000000000000000</double>
@@ -531,6 +531,19 @@
               <number>0</number>
              </property>
              <item>
+              <spacer name="verticalSpacer">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
               <widget class="QPushButton" name="moveSpeakerUpButton">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -630,6 +643,19 @@
                 <string>🠇</string>
                </property>
               </widget>
+             </item>
+             <item>
+              <spacer name="verticalSpacer_2">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
              </item>
             </layout>
            </widget>
@@ -944,7 +970,7 @@
   </action>
  </widget>
  <resources>
-  <include location="app_icon.qrc"/>
+  <include location="../../resources/resources.qrc"/>
  </resources>
  <connections/>
 </ui>

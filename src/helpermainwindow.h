@@ -1,12 +1,17 @@
 #ifndef HELPERMAINWINDOW_H
 #define HELPERMAINWINDOW_H
 
+#include "session.h"
+
 #include <QMainWindow>
 #include <QListWidgetItem>
 #include <QChar>
 #include <QTimer>
 #include <QUrl>
 #include <QtMultimedia/QSoundEffect>
+#include <QMessageBox>
+#include <QFileDialog>
+#include <QCloseEvent>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -21,8 +26,6 @@ class helperMainWindow : public QMainWindow
 public:
     helperMainWindow(QWidget *parent = nullptr);
     ~helperMainWindow();
-
-    void setTimerWarning(int newTimerWarning);
 
 private slots:
 
@@ -54,6 +57,12 @@ private slots:
 
     void on_actionSettings_triggered();
 
+    void on_actionNewSession_triggered();
+
+    void on_actionSessionSave_triggered();
+
+    void on_actionSessionOpen_triggered();
+
     // communication handlers
     void timerWarningChangedHandler(int arg1);
 
@@ -61,17 +70,25 @@ private slots:
 
 private:
     Ui::helperMainWindow *ui;
-    QTimer *updateTimer = new QTimer();
-    QTimer *speakerTimer = new QTimer();
-
-    void resizeEvent(QResizeEvent*);
-    void speakerTimeout();
-    void updateProgress();
+    QTimer *updateTimer = new QTimer(this);
+    QTimer *speakerTimer = new QTimer(this);
+    Session *session = new Session(this);
 
     int timerWarningDelay;
     bool timerWarningSoundEnabled;
 
     QSoundEffect ding;
     QSoundEffect dingdingding;
+
+    void speakerTimeout();
+    void updateProgress();
+
+    void loadFromSession();
+    void clearWindow();
+
+    void exitNewDialog();
+
+    // void resizeEvent(QResizeEvent*);
+    void closeEvent(QCloseEvent *event);
 };
 #endif // HELPERMAINWINDOW_H
