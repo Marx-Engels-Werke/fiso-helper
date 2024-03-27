@@ -1,8 +1,6 @@
 #ifndef HELPERMAINWINDOW_H
 #define HELPERMAINWINDOW_H
 
-#include "session.h"
-
 #include <QMainWindow>
 #include <QListWidgetItem>
 #include <QChar>
@@ -11,6 +9,8 @@
 #include <QtMultimedia/QSoundEffect>
 #include <QMessageBox>
 #include <QFileDialog>
+#include <QFile>
+#include <QSaveFile>
 #include <QCloseEvent>
 
 QT_BEGIN_NAMESPACE
@@ -69,10 +69,11 @@ private slots:
     void timerWarningSoundHandler(bool arg1);
 
 private:
+    bool isChanged;
+
     Ui::helperMainWindow *ui;
     QTimer *updateTimer = new QTimer(this);
     QTimer *speakerTimer = new QTimer(this);
-    Session *session = new Session(this);
 
     int timerWarningDelay;
     bool timerWarningSoundEnabled;
@@ -83,7 +84,6 @@ private:
     void speakerTimeout();
     void updateProgress();
 
-    void loadFromSession();
     void clearWindow();
 
     void exitNewDialog();

@@ -826,6 +826,9 @@
               <height>30</height>
              </size>
             </property>
+            <property name="placeholderText">
+             <string>Name eingeben</string>
+            </property>
            </widget>
           </item>
           <item>
@@ -945,14 +948,6 @@
     <enum>QAction::QuitRole</enum>
    </property>
   </action>
-  <action name="actionSettings">
-   <property name="text">
-    <string>&amp;Einstellungen</string>
-   </property>
-   <property name="menuRole">
-    <enum>QAction::PreferencesRole</enum>
-   </property>
-  </action>
   <action name="actionNewSession">
    <property name="text">
     <string>&amp;Neue Satzung</string>
@@ -966,6 +961,14 @@
   <action name="actionSessionSave">
    <property name="text">
     <string>Sat&amp;zung speichern...</string>
+   </property>
+  </action>
+  <action name="actionSettings">
+   <property name="text">
+    <string>&amp;Einstellungen</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::PreferencesRole</enum>
    </property>
   </action>
  </widget>

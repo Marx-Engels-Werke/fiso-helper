@@ -18,6 +18,9 @@ helperMainWindow::helperMainWindow(QWidget *parent)
     // sounds
     this->ding.setSource(QUrl("qrc:/sounds/sounds/ding.wav"));
     this->dingdingding.setSource(QUrl("qrc:/sounds/sounds/dingdingding.wav"));
+
+    // session
+    this->isChanged = false;
 }
 
 helperMainWindow::~helperMainWindow() {
@@ -31,9 +34,8 @@ void helperMainWindow::on_addPresentButton_clicked() {
         ui->presentList->addItem(str);
         ui->inputPresentEditBox->setText("");
 
-        this->session->addPresent(str);
+        this->isChanged = true;
     }
-
 }
 
 void helperMainWindow::on_inputPresentEditBox_returnPressed() {
@@ -42,7 +44,7 @@ void helperMainWindow::on_inputPresentEditBox_returnPressed() {
         ui->presentList->addItem(str);
         ui->inputPresentEditBox->setText("");
 
-        this->session->addPresent(str);
+        this->isChanged = true;
     }
 }
 
@@ -58,7 +60,7 @@ void helperMainWindow::on_presentList_itemDoubleClicked(QListWidgetItem *item) {
         ui->speakerList->addItem(item->text());
     }
 
-    this->session->addSpeaker(ui->presentList->row(item));
+    this->isChanged = true;
 }
 
 void helperMainWindow::on_removePresentButton_clicked() {
@@ -66,9 +68,9 @@ void helperMainWindow::on_removePresentButton_clicked() {
         QListWidgetItem* item = ui->presentList->selectedItems().at(0);
         int selected_row = ui->presentList->row(item);
         ui->presentList->takeItem(selected_row);
-
-        this->session->removePresent(selected_row);
     }
+
+    this->isChanged = true;
 }
 
 void helperMainWindow::on_removeSpeakerButton_clicked() {
@@ -76,9 +78,9 @@ void helperMainWindow::on_removeSpeakerButton_clicked() {
         QListWidgetItem* item = ui->speakerList->selectedItems().at(0);
         int selected_row = ui->speakerList->row(item);
         ui->speakerList->takeItem(selected_row);
-
-        this->session->removeSpeaker(selected_row);
     }
+
+    this->isChanged = true;
 }
 
 void helperMainWindow::on_removeCurrentSpeakerButton_clicked() {
@@ -90,9 +92,13 @@ void helperMainWindow::on_removeCurrentSpeakerButton_clicked() {
         ui->currentSpeakerLabel->setFont(labelFont);
 
         ui->speakerList->takeItem(0);
+
+        this->isChanged = true;
     }
     else {
         ui->currentSpeakerLabel->setText("");
+
+        this->isChanged = true;
     }
     if (ui->timerGroupBoxWidget->isChecked()) {
         speakerTimer->stop();
@@ -101,8 +107,6 @@ void helperMainWindow::on_removeCurrentSpeakerButton_clicked() {
         ui->timerProgressBar->setValue(ui->timerProgressBar->maximum());
     }
     ui->currentSpeakerLabel->setAutoFillBackground(false);
-
-    this->session->proceed();
 }
 
 void helperMainWindow::on_moveSpeakerUpButton_clicked() {
@@ -112,9 +116,8 @@ void helperMainWindow::on_moveSpeakerUpButton_clicked() {
             QListWidgetItem* item = ui->speakerList->takeItem(selected_row);
             ui->speakerList->insertItem(selected_row - 1, item->text());
             ui->speakerList->setCurrentRow(selected_row - 1);
-
-            this->session->moveSpeakerUp(selected_row);
         }
+        this->isChanged = true;
     }
 }
 
@@ -125,9 +128,8 @@ void helperMainWindow::on_moveSpeakerDownButton_clicked() {
             QListWidgetItem* item = ui->speakerList->takeItem(selected_row);
             ui->speakerList->insertItem(selected_row + 1, item->text());
             ui->speakerList->setCurrentRow(selected_row + 1);
-
-            this->session->moveSpeakerDown(selected_row);
         }
+        this->isChanged = true;
     }
 }
 
@@ -168,29 +170,80 @@ void helperMainWindow::on_actionSettings_triggered() {
 }
 
 void helperMainWindow::on_actionNewSession_triggered() {
-    if (this->session->isChanged()) {
+    if (this->isChanged) {
         this->exitNewDialog();
     }
     else {
-        this->session = new Session();
         this->clearWindow();
+        this->isChanged = false;
     }
 }
 
 void helperMainWindow::on_actionSessionSave_triggered() {
     QString filename = QFileDialog::getSaveFileName(this, tr("Satzung speichern"), "", tr("Satzung Datei (*.sdaj)"));
-    if (this->session->save(filename, this))
-        this->session->applyNotChanged();
+    QSaveFile file(filename);
+
+    if (!file.open(QIODevice::WriteOnly)) {
+        QMessageBox::information(this, tr("Unable to save file"),
+                                 file.errorString());
+        return;
+    }
+
+    this->isChanged = false;
+    QDataStream out(&file);
+
+    out << ui->currentSpeakerLabel->text().toUtf8();
+
+    QList<QByteArray> speakerList;
+    for (int i = 0; i < ui->speakerList->count(); ++i)
+        speakerList.append(ui->speakerList->item(i)->text().toUtf8());
+
+    QList<QByteArray> presentList;
+    for (int i = 0; i < ui->presentList->count(); ++i)
+        presentList.append(ui->presentList->item(i)->text().toUtf8());
+
+    out << speakerList;
+    out << presentList;
+
+    file.commit();
 }
 
 void helperMainWindow::on_actionSessionOpen_triggered() {
-    if (this->session->isChanged()) {
+    if (this->isChanged)
         this->exitNewDialog();
-    }
+    else
+        this->clearWindow();
+
     QString filename = QFileDialog::getOpenFileName(this, tr("Satzung öffnen"), "", tr("Satzung Datei (*.sdaj)"));
-    this->session = new Session(this);
-    if (this->session->load(filename, this))
-        this->loadFromSession();
+    QFile file(filename);
+
+    if (!file.open(QIODevice::ReadOnly)) {
+        QMessageBox::information(this, tr("Unable to open file"),
+                                 file.errorString());
+        return;
+    }
+
+    QDataStream in(&file);
+
+    QByteArray currentSpeaker;
+    QList<QByteArray> speakerList;
+    QList<QByteArray> presentList;
+
+    in >> currentSpeaker;
+    in >> speakerList;
+    in >> presentList;
+
+    file.close();
+
+    ui->currentSpeakerLabel->setText(currentSpeaker);
+
+    for (auto &item: speakerList) {
+        ui->speakerList->addItem(item);
+    }
+
+    for (auto &item: presentList) {
+        ui->presentList->addItem(item);
+    }
 }
 
 // communication handlers
@@ -239,16 +292,6 @@ void helperMainWindow::updateProgress() {
     }
 }
 
-void helperMainWindow::loadFromSession() {
-    ui->currentSpeakerLabel->setText(this->session->getCurrentSpeaker());
-    for (QString &item : this->session->getSpeakerList()) {
-        ui->speakerList->addItem(item);
-    }
-    for (QString &item : this->session->getPresentList()) {
-        ui->presentList->addItem(item);
-    }
-}
-
 void helperMainWindow::clearWindow() {
     ui->currentSpeakerLabel->clear();
     ui->speakerList->clear();
@@ -265,11 +308,11 @@ void helperMainWindow::exitNewDialog() {
     switch (resBtn) {
     case QMessageBox::Save:
         this->on_actionSessionSave_triggered();
-        this->session = new Session();
+        this->isChanged = false;
         this->clearWindow();
         break;
     case QMessageBox::Discard:
-        this->session = new Session();
+        this->isChanged = false;
         this->clearWindow();
         break;
     case QMessageBox::Cancel:
@@ -280,7 +323,7 @@ void helperMainWindow::exitNewDialog() {
 }
 
 void helperMainWindow::closeEvent(QCloseEvent *event) {
-    if (this->session->isChanged()) {
+    if(this->isChanged) {
         QMessageBox::StandardButton resBtn = QMessageBox::question(this,
                                                                    tr("fiso-helper"),
                                                                    tr("Satzung speichern?"),
@@ -300,8 +343,5 @@ void helperMainWindow::closeEvent(QCloseEvent *event) {
             event->ignore();
             break;
         }
-    }
-    else {
-        event->accept();
     }
 }
